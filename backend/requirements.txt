@@ -1,0 +1,8 @@
+asyncio
+nest-asyncio
+asyncpg
+sqlalchemy
+python-dotenv
+fastapi
+uvicorn
+jwt
