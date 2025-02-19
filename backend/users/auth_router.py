@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 import datetime
-from schemas import *
-from models import *
+from backend.schemas import *
+from backend.models import *
 from . import db, log, DATE_FORMAT, encode_jwt_token
 import random
 

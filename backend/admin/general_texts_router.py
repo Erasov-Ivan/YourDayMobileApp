@@ -1,10 +1,10 @@
 from fastapi import APIRouter
-from schemas import *
-from models import *
+from backend.schemas import *
+from backend.models import *
 from . import db, log
 
 
-router = APIRouter(prefix="/texts", tags=["Admin Texts"])
+router = APIRouter(prefix="/general_texts", tags=["Admin General Texts"])
 
 
 @router.post("/new_field", response_model=BaseResponse)
@@ -42,7 +42,7 @@ async def new_text(
                 return BaseResponse(error=True, message="Text with such language already exists")
             else:
                 await db.new_text(
-                    text=Texts(
+                    text=GeneralTexts(
                         field_id=field_id,
                         language=language,
                         text=text
@@ -70,7 +70,7 @@ async def new_text(
                     return BaseResponse(error=True, message="Text with such language do not exists")
                 else:
                     await db.new_text(
-                        text=Texts(
+                        text=GeneralTexts(
                             field_id=field_id,
                             language=language,
                             text=text
@@ -78,7 +78,7 @@ async def new_text(
                     )
                     return BaseResponse()
             else:
-                await db.update_text(
+                await db.update_general_text(
                     field_id=field_id,
                     language=language,
                     text=text
@@ -96,8 +96,8 @@ async def get_fields_list(
         language: str = None,
 ):
     try:
-        fields = await db.get_fields(limit=limit, offset=offset)
-        total_count = await db.count_fields()
+        fields = await db.get_general_fields(limit=limit, offset=offset)
+        total_count = await db.count_general_fields()
         return FieldsListResponse(
             payload=FieldsListModel(
                 total_count=total_count,
@@ -109,7 +109,7 @@ async def get_fields_list(
                             TextModel(
                                 language=text.language,
                                 text=text.text
-                            ) for text in await db.get_texts_by_filed_id(field_id=field.id, language=language)
+                            ) for text in await db.get_general_texts_by_filed_id(field_id=field.id, language=language)
                         ]
                     ) for field in fields
                 ]

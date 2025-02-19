@@ -1,5 +1,5 @@
 from . import db, decode_jwt_token
-from models import *
+from backend.models import *
 
 
 async def get_user_by_token(token: str) -> User:

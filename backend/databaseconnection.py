@@ -97,6 +97,24 @@ class DataBaseWorker:
             await session.execute(stmt)
             await session.commit()
 
+    # ----------------------------- SUBSCRIPTIONS ---------------------------
+    async def is_subscription_exists(self, subscription_id: str) -> bool:
+        async with self.create_session() as session:
+            stmt = select(Subscription).where(Subscription.id == subscription_id)
+            result = (await session.execute(stmt)).scalars().all()
+            return bool(len(result))
+
+    async def new_subscription(self, subscription: Subscription):
+        async with self.create_session() as session:
+            session.add(subscription)
+            await session.commit()
+
+    async def get_subscriptions(self) -> list[Subscription]:
+        async with self.create_session() as session:
+            stmt = select(Subscription)
+            result = (await session.execute(stmt)).scalars().all()
+            return result
+
     # ----------------------------- TEXTS ---------------------------
     async def is_filed_exists(self, field_id: str) -> bool:
         async with self.create_session() as session:
@@ -111,42 +129,51 @@ class DataBaseWorker:
 
     async def is_text_exists(self, field_id: str, language: str) -> bool:
         async with self.create_session() as session:
-            stmt = select(Texts).where(Texts.field_id == field_id, Texts.language == language)
+            stmt = select(GeneralTexts).where(
+                GeneralTexts.field_id == field_id, GeneralTexts.language == language
+            )
             result = (await session.execute(stmt)).scalars().all()
             return bool(len(result))
 
-    async def new_text(self, text: Texts):
+    async def new_text(self, text: GeneralTexts):
         async with self.create_session() as session:
             session.add(text)
             await session.commit()
 
-    async def update_text(self, field_id: str, language: str, text: str):
+    async def update_general_text(self, field_id: str, language: str, text: str):
         async with self.create_session() as session:
-            stmt = update(Texts).where(Texts.field_id == field_id, Texts.language == language).values(text=text)
+            stmt = update(GeneralTexts).where(
+                GeneralTexts.field_id == field_id, GeneralTexts.language == language
+            ).values(text=text)
             await session.execute(stmt)
             await session.commit()
 
-    async def get_fields(self, limit: int = 10, offset: int = 0) -> list[TextField]:
+    async def get_general_fields(self, limit: int = 10, offset: int = 0) -> list[TextField]:
         async with self.create_session() as session:
             stmt = select(TextField).order_by(TextField.id).limit(limit).offset(offset)
             result = (await session.execute(stmt)).scalars().all()
             return result
 
-    async def count_fields(self) -> int:
+    async def count_general_fields(self) -> int:
         async with self.create_session() as session:
             stmt = select(func.count(TextField.id))
             result = (await session.execute(stmt)).scalars().first()
             return result
 
-    async def get_texts_by_filed_id(self, field_id: str, language: str | None) -> list[Texts]:
+    async def get_general_texts_by_filed_id(self, field_id: str, language: str | None) -> list[GeneralTexts]:
         async with self.create_session() as session:
-            stmt = select(Texts).where(
-                Texts.field_id == field_id,
+            stmt = select(GeneralTexts).where(
+                GeneralTexts.field_id == field_id,
                 or_(
-                    Texts.language == language,
+                    GeneralTexts.language == language,
                     language is None
                 )
             )
             result = (await session.execute(stmt)).scalars().all()
             return result
 
+    async def get_general_texts_by_language(self, language: str) -> list[GeneralTexts]:
+        async with self.create_session() as session:
+            stmt = select(GeneralTexts).where(GeneralTexts.language == language)
+            result = (await session.execute(stmt)).scalars().all()
+            return result

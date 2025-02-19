@@ -45,3 +45,20 @@ class FieldsListModel(BaseModel):
 
 class FieldsListResponse(BaseResponse):
     payload: Optional[FieldsListModel] = None
+
+
+class UsersFieldsListResponse(BaseResponse):
+    payload: Optional[dict[str, str]] = None
+
+
+class SubscriptionModel(BaseModel):
+    id: str
+    description: str
+
+
+class SubscriptionListModel(BaseModel):
+    subscriptions: List[SubscriptionModel] = []
+
+
+class SubscriptionsListResponse(BaseResponse):
+    payload: Optional[SubscriptionListModel] = None
