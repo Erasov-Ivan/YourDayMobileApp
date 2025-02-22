@@ -15,3 +15,5 @@ from .pincode_router import router as pincode_router
 router.include_router(pincode_router)
 from .general_texts_router import router as general_texts_router
 router.include_router(general_texts_router)
+from .subscription_texts_router import router as subscription_texts_router
+router.include_router(subscription_texts_router)

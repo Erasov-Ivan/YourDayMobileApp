@@ -115,6 +115,13 @@ class DataBaseWorker:
             result = (await session.execute(stmt)).scalars().all()
             return result
 
+    # ---------------------- USERS TO SUBSCRIPTIONS ---------------------------
+    async def get_user_subscriptions(self, user_id: int) -> list[UserHasSubscription]:
+        async with self.create_session() as session:
+            stmt = select(UserHasSubscription).where(UserHasSubscription.user_id == user_id)
+            result = (await session.execute(stmt)).scalars().all()
+            return result
+
     # ----------------------------- TEXTS ---------------------------
     async def is_filed_exists(self, field_id: str) -> bool:
         async with self.create_session() as session:
@@ -175,5 +182,53 @@ class DataBaseWorker:
     async def get_general_texts_by_language(self, language: str) -> list[GeneralTexts]:
         async with self.create_session() as session:
             stmt = select(GeneralTexts).where(GeneralTexts.language == language)
+            result = (await session.execute(stmt)).scalars().all()
+            return result
+
+    # ------------------------SUBSCRIPTION TEXTS ---------------------------
+    async def new_subscription_text(self, text: SubscriptionTexts):
+        async with self.create_session() as session:
+            session.add(text)
+            await session.commit()
+
+    async def is_subscription_text_exists(self, subscription_id: str, language: str, field_id: str, number: int) -> bool:
+        async with self.create_session() as session:
+            stmt = select(SubscriptionTexts).where(
+                SubscriptionTexts.subscription_id == subscription_id,
+                SubscriptionTexts.language == language,
+                SubscriptionTexts.field == field_id,
+                SubscriptionTexts.number == number
+            )
+            result = (await session.execute(stmt)).scalars().all()
+            return bool(len(result))
+
+    async def update_subscription_text(self, subscription_id: str, language: str, field_id: str, number: int, text: str):
+        async with self.create_session() as session:
+            stmt = update(SubscriptionTexts).where(
+                SubscriptionTexts.subscription_id == subscription_id,
+                SubscriptionTexts.language == language,
+                SubscriptionTexts.field == field_id,
+                SubscriptionTexts.number == number
+            ).values(text=text)
+            await session.execute(stmt)
+            await session.commit()
+
+    async def get_subscription_text(self, subscription_id: str, language: str, field_id: str, number: int) -> SubscriptionTexts | None:
+        async with self.create_session() as session:
+            stmt = select(SubscriptionTexts).where(
+                SubscriptionTexts.subscription_id == subscription_id,
+                SubscriptionTexts.language == language,
+                SubscriptionTexts.field == field_id,
+                SubscriptionTexts.number == number
+            )
+            result = (await session.execute(stmt)).scalars().first()
+            return result
+
+    async def get_subscription_texts_list(self, subscription_id: str | None, language: str | None) -> list[SubscriptionTexts]:
+        async with self.create_session() as session:
+            stmt = select(SubscriptionTexts).where(
+                or_(subscription_id is None, SubscriptionTexts.subscription_id == subscription_id),
+                or_(language is None, SubscriptionTexts.language == language)
+            ).order_by(SubscriptionTexts.number)
             result = (await session.execute(stmt)).scalars().all()
             return result

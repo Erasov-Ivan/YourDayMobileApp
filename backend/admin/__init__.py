@@ -15,3 +15,5 @@ from .general_texts_router import router as general_texts_router
 router.include_router(general_texts_router)
 from .subscriptions_router import router as subscriptions_router
 router.include_router(subscriptions_router)
+from .subscriptions_texts_router import router as subscriptions_texts_router
+router.include_router(subscriptions_texts_router)

@@ -55,7 +55,7 @@ async def new_text(
 
 
 @router.post("/update_text", response_model=BaseResponse)
-async def new_text(
+async def update_text(
     field_id: str,
     language: str,
     text: str,

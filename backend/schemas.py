@@ -62,3 +62,45 @@ class SubscriptionListModel(BaseModel):
 
 class SubscriptionsListResponse(BaseResponse):
     payload: Optional[SubscriptionListModel] = None
+
+
+class PredictionFieldModel(BaseModel):
+    num: int
+    text: Optional[str]
+
+
+class PredictionModel(BaseModel):
+    date: str
+    subscriptions: dict[str, dict[str, PredictionFieldModel]]
+
+
+class PredictionsListModel(BaseModel):
+    predictions: List[PredictionModel] = []
+
+
+class PredictionsListResponse(BaseResponse):
+    payload: Optional[PredictionsListModel] = None
+
+
+class SubscriptionTextModel(BaseModel):
+    number: int
+    text: str
+
+
+class SubscriptionFieldModel(BaseModel):
+    field_id: str
+    texts: list[SubscriptionTextModel] = []
+
+
+class LanguageTextsListModel(BaseModel):
+    language: str
+    fields: List[SubscriptionFieldModel] = []
+
+
+class SubscriptionLanguagesModel(BaseModel):
+    subscription_id: str
+    languages: List[LanguageTextsListModel] = []
+
+
+class SubscriptionTextsResponse(BaseResponse):
+    payload: Optional[List[SubscriptionLanguagesModel]] = None

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import Column, String, Integer, Sequence, BigInteger, Date, ForeignKey, Float, Boolean
+from sqlalchemy import Column, String, Integer, Sequence, BigInteger, DateTime, ForeignKey, Float, Boolean, Date
 
 
 class Base(DeclarativeBase):
@@ -9,8 +9,8 @@ class Base(DeclarativeBase):
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(BigInteger, Sequence('user_id', metadata=Base.metadata), primary_key=True)
-    email = Column(String, unique=True)
+    id = Column(BigInteger, Sequence('user_id', metadata=Base.metadata), primary_key=True, index=True)
+    email = Column(String, unique=True, index=True)
     name = Column(String)
     bdate = Column(Date)
     approved = Column(Boolean, default=False)
@@ -27,9 +27,9 @@ class Subscription(Base):
 class UserHasSubscription(Base):
     __tablename__ = "user_has_subscription"
 
-    user_id = Column(BigInteger, ForeignKey(User.id, ondelete="CASCADE"), nullable=False, primary_key=True)
-    subscription = Column(String, ForeignKey(Subscription.id, ondelete="CASCADE"), nullable=False, primary_key=True)
-    expires = Column(Date, nullable=False)
+    user_id = Column(BigInteger, ForeignKey(User.id, ondelete="CASCADE"), nullable=False, primary_key=True, index=True)
+    subscription = Column(String, ForeignKey(Subscription.id, ondelete="CASCADE"), nullable=False, primary_key=True, index=True)
+    expires = Column(DateTime)
 
 
 class TextField(Base):
@@ -50,7 +50,8 @@ class GeneralTexts(Base):
 class SubscriptionTexts(Base):
     __tablename__ = "subscription_texts"
 
+    field = Column(String, primary_key=True)
     number = Column(BigInteger, primary_key=True)
     language = Column(String, primary_key=True)
-    subscription = Column(String, ForeignKey(Subscription.id, ondelete="CASCADE"), nullable=False, primary_key=True)
+    subscription_id = Column(String, ForeignKey(Subscription.id, ondelete="CASCADE"), nullable=False, primary_key=True)
     text = Column(String)

@@ -33,11 +33,15 @@ async def encode_jwt_token(data: str) -> str:
 
 
 async def decode_jwt_token(token: str) -> str:
-    payload = jwt.decode(
-        jwt=token,
-        key=HASH_KEY,
-        algorithms=['HS256']
-    )
+    try:
+        payload = jwt.decode(
+            jwt=token,
+            key=HASH_KEY,
+            algorithms=['HS256']
+        )
+    except Exception as e:
+        logging.error(e)
+        raise Exception('Invalid token')
     try:
         data = payload['data']
         return data
