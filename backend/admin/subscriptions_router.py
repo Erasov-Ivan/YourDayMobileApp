@@ -7,7 +7,7 @@ from . import db, log
 router = APIRouter(prefix="/subscriptions", tags=["Admin Subscriptions"])
 
 
-@router.post("/new_subscription", response_model=BaseResponse)
+@router.post("/new", response_model=BaseResponse)
 async def new_subscription(
         id: str,
         description: str

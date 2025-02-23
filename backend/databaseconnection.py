@@ -1,3 +1,4 @@
+import datetime
 import logging
 from uuid import uuid4
 from asyncpg import Connection
@@ -42,6 +43,7 @@ class DataBaseWorker:
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
             await conn.commit()
+            await self.load_basic_data()
             self.log.info('Connected')
 
     @asynccontextmanager
@@ -54,6 +56,12 @@ class DataBaseWorker:
                 raise
             finally:
                 await db.close()
+
+    async def load_basic_data(self):
+        subscriptions = await self.get_subscriptions()
+        if len(subscriptions) == 0:
+            await self.new_subscription(subscription=Subscription(id='BASIC', description='Базовый пакет'))
+            await self.new_subscription(subscription=Subscription(id='EXTENDED', description='Расширенный пакет'))
 
     # ----------------------- USERS ---------------------
     async def new_user(self, user: User) -> None:
@@ -122,6 +130,11 @@ class DataBaseWorker:
             result = (await session.execute(stmt)).scalars().all()
             return result
 
+    async def set_subscription_to_user(self, subscription: UserHasSubscription):
+        async with self.create_session() as session:
+            session.add(subscription)
+            await session.commit()
+
     # ----------------------------- TEXTS ---------------------------
     async def is_filed_exists(self, field_id: str) -> bool:
         async with self.create_session() as session:
@@ -155,9 +168,14 @@ class DataBaseWorker:
             await session.execute(stmt)
             await session.commit()
 
-    async def get_general_fields(self, limit: int = 10, offset: int = 0) -> list[TextField]:
+    async def get_general_fields(self, limit: int = 10, offset: int = 0, search: str = None) -> list[TextField]:
         async with self.create_session() as session:
-            stmt = select(TextField).order_by(TextField.id).limit(limit).offset(offset)
+            stmt = select(TextField)
+            if search is not None:
+                stmt = stmt.where(or_(TextField.id.ilike(f'%{search}%'), TextField.description.ilike(f'%{search}%')))
+            stmt = stmt.order_by(TextField.id)
+            if limit != -1:
+                stmt = stmt.limit(limit).offset(offset)
             result = (await session.execute(stmt)).scalars().all()
             return result
 

@@ -28,6 +28,27 @@ async def new_field(
         return BaseResponse(error=True, message=str(e))
 
 
+@router.get("/fields_list", response_model=FieldsWithoutTextListResponse)
+async def fields_list(
+        search: str = None
+):
+    try:
+        fields = await db.get_general_fields(limit=-1, offset=0, search=search)
+        return FieldsWithoutTextListResponse(
+            payload=FieldsWithoutTextListModel(
+                fields=[
+                    FieldWithoutTextModel(
+                        id=field.id,
+                        description=field.description
+                    ) for field in fields
+                ]
+            )
+        )
+    except Exception as e:
+        log.error(str(e))
+        return BaseResponse(error=True, message=str(e))
+
+
 @router.post("/new_text", response_model=BaseResponse)
 async def new_text(
     field_id: str,

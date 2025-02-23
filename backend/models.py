@@ -20,7 +20,7 @@ class User(Base):
 class Subscription(Base):
     __tablename__ = "subscriptions"
 
-    id = Column(String, Sequence('subscription_id', metadata=Base.metadata), primary_key=True)
+    id = Column(String, primary_key=True)
     description = Column(String)
 
 

@@ -47,6 +47,19 @@ class FieldsListResponse(BaseResponse):
     payload: Optional[FieldsListModel] = None
 
 
+class FieldWithoutTextModel(BaseModel):
+    id: str
+    description: str
+
+
+class FieldsWithoutTextListModel(BaseModel):
+    fields: List[FieldWithoutTextModel] = []
+
+
+class FieldsWithoutTextListResponse(BaseResponse):
+    payload: Optional[FieldsWithoutTextListModel] = None
+
+
 class UsersFieldsListResponse(BaseResponse):
     payload: Optional[dict[str, str]] = None
 
