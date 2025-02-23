@@ -22,20 +22,20 @@ services:
       options:
         max-size: "10m"
 
-  #backend:
-  #  container_name: backend
-  #  depends_on:
-  #    database:
-  #      condition: service_healthy
-  #  ports:
-  #    - "5000:5000"
-  #  build: ./backend
-  #  env_file:
-  #   - .env
-  #  logging:
-  #    driver: "json-file"
-  #    options:
-  #      max-size: "10m"
+  backend:
+    container_name: backend
+    depends_on:
+      database:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    build: ./backend
+    env_file:
+     - .env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
 
 
 volumes:

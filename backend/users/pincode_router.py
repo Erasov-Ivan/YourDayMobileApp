@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from backend.schemas import *
+from schemas import *
 from .utils import *
 from . import db, log
 import random

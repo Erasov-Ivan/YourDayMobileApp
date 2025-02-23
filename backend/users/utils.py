@@ -1,7 +1,7 @@
 from . import db, decode_jwt_token
 import datetime
-from backend.models import *
-from backend.schemas import *
+from models import *
+from schemas import *
 from .predictions_calculator import calculate_prediction
 
 

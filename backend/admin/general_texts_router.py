@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from backend.schemas import *
-from backend.models import *
+from schemas import *
+from models import *
 from . import db, log
 
 

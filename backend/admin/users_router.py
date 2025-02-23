@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from backend.schemas import *
+from schemas import *
 from . import db, log, DATE_FORMAT, encode_jwt_token
 
 
