@@ -45,11 +45,12 @@ for row in reader:
             print('-'*50)
         for language in headers.languages:
             response = requests.post(
-                url='http://89.111.153.183:5000/api/admin/general_texts/new_text',
+                url='http://89.111.153.183:5000/api/admin/general_texts/update_text',
                 params={
                     'field_id': row[headers.field_id_position],
                     'language': language.language,
-                    'text': row[language.position]
+                    'text': row[language.position],
+                    'create_if_not_exists': True
                 }
             )
             response = response.json()

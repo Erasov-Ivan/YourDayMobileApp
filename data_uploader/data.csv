@@ -1,59 +1,62 @@
-field_id;description;RU;EN
-APPROVE_BUTTON;"Кнопка ""подтвердить""";Подтвердить;Confirm
-BACK_BUTTON;"Кнопка ""Назад""";Назад;Back
-CALCULATE_CAPTION;"Заголовок ""Расчёт""";Расчёт;Calculate
-CODE_GET_AGAIN_BUTTON;"Кнопка ""получить код повторно""";Получить код повторно;Send code again
-CODE_GET_BUTTON;"Кнопка ""Получить код""";Получить код;Send code
-CODE_PLACEHOLDER;"Надпись по умолчанию в поле ""код""";Введите код;Enter code
-CODE_TEXT;"Надпись ""код""";Код;Code
-COLORS_TABLE_LEAST_NEGARIVE;"Надпись ""Наименее негативная""";Наименее негативная;The least negative
-COLORS_TABLE_LEAST_POSITIVE;"Надпись ""Наименее позитивная""";Наименее позитивная;The least positive
-COLORS_TABLE_MORE_POSITIVE;"Надпись ""Наиболее позитивная""";Наиболее позитивная;More positive
-COLORS_TABLE_MOST_NEGATIVE;"Надпись ""Самая негативная""";Самая негативная;The most negative
-COLORS_TABLE_MOST_POSITIVE;"Надпись ""Самая позитивная""";Самая позитивная;The most positive
-COLORS_TABLE_NEUTRAL;"Надпись ""Нейтральная""";Нейтральная;Neutral
-COLORS_TABLE_TEXT;"Надпись ""Таблица цветов""";Таблица цветов;Colors table
-COMPATIBILITY_BUTTON;"Кнопка ""Совместимость""";Совместимость;Compatibility
-COMPATIBILITY_CAPTION;"Заголовок ""Совместимость""";Совместимость;Compatibility
-CONTINUE_BUTTON;"Кнопка ""Продолжить""";Продолжить;Continue
-DAY_TEXT;"Надпись ""День""";День;Day
-EMAIL_APPROVE_CAPTION;Заголовок при подтверждении электронной почты;Подтверждение электронной почты;Email Confirmation
-EMAIL_PLACEHOLDER;"Текст по умолчанию в поле ""электронная почта""";yourmail@example.com;yourmail@example.com
-EMAIL_TEXT;"Надпись ""электронная почта""";Электронная почта;Email
-LANGUAGE_SELECTION_CAPTION;Заголовок при выборе языка;Выбор языка;Chose language
-MONTH_TEXT;"Надпись ""Месяц""";Месяц;Month
-NAMES_DATA_DELETE_BUTTON;"Кнопка ""удалить из базы""";удалить из базы;delete from the database
-NAMES_DATA_TEXT;"Заголовок ""База имён""";База имён;Database of names
-NOTIFICATION_TIME_TEXT;"Надпись ""Время уведомлений""";Время уведомлений;Notification Time
-PERSONAL_ACCOUNT_CAPTION;"Заголовок ""Личный кабинет""";Личный кабинет;Personal account
-PERSONAL_ACCOUNT_USER_DATA_CAPTION;"Заголовок ""Данные пользователя""";Данные пользователя;User data
-PINCODE_CREATE_CAPTION;"Заголовок ""придумайте пин-код""";Придумайте пин-код;Create PIN code
-PINCODE_ENTER_CAPTION;"Заголовок ""введите пин-код""";Введите пин-код;Enter the PIN code
-PINCODE_FORGOT_BUTTON;"Кнопка ""забыли пин-код?""";Забыли пин-код?;Forgot your PIN?
-PINCODE_REPEAT_CAPTION;"Заголовок ""повторите пин-код""";Повторите пин-код;Repeat the PIN code
-PINCODE_RESET_CAPTION;"Заголовок ""Восстановление пин-кода""";Восстановление пин-кода;PIN Code Recovery
-REGISTRATION_CAPTION;Заголовок при регистрации;Регистрация;Registration
-SAVE_CHECKBOX;"Галочка ""сохранить""";сохранить;save
-SUBSCRIPTION_BASIC_CAPTION;"Заголовок ""Обычный пакет""";Обычный пакет;Basic Subscription
-SUBSCRIPTION_CAPTION;"Заголовок ""Подписка""";Подписка;Subscription
-SUBSCRIPTION_EXTENDED_CAPTION;"Заголовок ""Расширенный пакет""";Расширенный пакет;Extended Subscription
+field_id;description;RU;EN;DE
+APPROVE_BUTTON;"Кнопка ""подтвердить""";Подтвердить;Confirm;Best?tigen
+BACK_BUTTON;"Кнопка ""Назад""";Назад;Back;Zur?ck
+CALCULATE_CAPTION;"Заголовок ""Расчёт""";Расчёт;Calculate;Berechnen
+CODE_GET_AGAIN_BUTTON;"Кнопка ""получить код повторно""";Получить код повторно;Send code again;Code erneut senden
+CODE_GET_BUTTON;"Кнопка ""Получить код""";Получить код;Send code;Code senden
+CODE_PLACEHOLDER;"Надпись по умолчанию в поле ""код""";Введите код;Enter code;Code eingeben
+CODE_TEXT;"Надпись ""код""";Код;Code;Codes
+COLORS_TABLE_LEAST_NEGARIVE;"Надпись ""Наименее негативная""";Наименее негативная;The least negative;Am wenigsten negativ
+COLORS_TABLE_LEAST_POSITIVE;"Надпись ""Наименее позитивная""";Наименее позитивная;The least positive;Am wenigsten positiv
+COLORS_TABLE_MORE_POSITIVE;"Надпись ""Наиболее позитивная""";Наиболее позитивная;More positive;Positiver
+COLORS_TABLE_MOST_NEGATIVE;"Надпись ""Самая негативная""";Самая негативная;The most negative;Das Negativste
+COLORS_TABLE_MOST_POSITIVE;"Надпись ""Самая позитивная""";Самая позитивная;The most positive;Das positivste
+COLORS_TABLE_NEUTRAL;"Надпись ""Нейтральная""";Нейтральная;Neutral;Neutral
+COLORS_TABLE_TEXT;"Надпись ""Таблица цветов""";Таблица цветов;Colors table;Farbtabelle
+COMPATIBILITY_BUTTON;"Кнопка ""Совместимость""";Совместимость;Compatibility;Kompatibilit?t
+COMPATIBILITY_CAPTION;"Заголовок ""Совместимость""";Совместимость;Compatibility;Kompatibilit?t
+CONTINUE_BUTTON;"Кнопка ""Продолжить""";Продолжить;Continue;Weiterhin
+DAY_TEXT;"Надпись ""День""";День;Day;Tag
+EMAIL_APPROVE_CAPTION;Заголовок при подтверждении электронной почты;Подтверждение электронной почты;Email Confirmation;E-Mail-Best?tigung
+EMAIL_PLACEHOLDER;"Текст по умолчанию в поле ""электронная почта""";yourmail@example.com;yourmail@example.com;yourmail@example.com
+EMAIL_TEXT;"Надпись ""электронная почта""";Электронная почта;Email;Email
+LANGUAGE_SELECTION_CAPTION;Заголовок при выборе языка;Выбор языка;Chose language;Sprache w?hlen
+MONTH_TEXT;"Надпись ""Месяц""";Месяц;Month;Monat
+NAMES_DATA_DELETE_BUTTON;"Кнопка ""удалить из базы""";удалить из базы;delete from the database;aus der Datenbank l?schen
+NAMES_DATA_TEXT;"Заголовок ""База имён""";База имён;Database of names;Datenbank der Namen
+NOTIFICATION_TIME_TEXT;"Надпись ""Время уведомлений""";Время уведомлений;Notification Time;Benachrichtigungszeit
+PERSONAL_ACCOUNT_CAPTION;"Заголовок ""Личный кабинет""";Личный кабинет;Personal account;Pers?nliches Konto
+PERSONAL_ACCOUNT_USER_DATA_CAPTION;"Заголовок ""Данные пользователя""";Данные пользователя;User data;Benutzerdaten
+PINCODE_CREATE_CAPTION;"Заголовок ""придумайте пин-код""";Придумайте пин-код;Create PIN code;PIN-Code erstellen
+PINCODE_ENTER_CAPTION;"Заголовок ""введите пин-код""";Введите пин-код;Enter the PIN code;Geben Sie den PIN-Code ein
+PINCODE_FORGOT_BUTTON;"Кнопка ""забыли пин-код?""";Забыли пин-код?;Forgot your PIN?;PIN vergessen?
+PINCODE_REPEAT_CAPTION;"Заголовок ""повторите пин-код""";Повторите пин-код;Repeat the PIN code;Wiederholen Sie den PIN-Code
+PINCODE_RESET_CAPTION;"Заголовок ""Восстановление пин-кода""";Восстановление пин-кода;PIN Code Recovery;PIN-Code-Wiederherstellung
+REGISTRATION_CAPTION;Заголовок при регистрации;Регистрация;Registration;Registrierung
+SAVE_CHECKBOX;"Галочка ""сохранить""";сохранить;save;speichern
+SUBSCRIPTION_BASIC_CAPTION;"Заголовок ""Обычный пакет""";Обычный пакет;Basic Subscription;Basisabonnement
+SUBSCRIPTION_CAPTION;"Заголовок ""Подписка""";Подписка;Subscription;Abonnement
+SUBSCRIPTION_EXTENDED_CAPTION;"Заголовок ""Расширенный пакет""";Расширенный пакет;Extended Subscription;Verl?ngertes Abonnement
 SUBSCRIPTION_EXTENDED_DESCRIPTION;Описание расширенного пакета;"обычный пакет
 +
 подробное описание";"basic subscription
 +
-detailed description"
-WEEK_TEXT;"Надпись ""Неделя""";Неделя;Week
-WEEKDAY_FRIDAY_TEXT;"Текст ""Пт"" (пятница)";Пт;Fri
-WEEKDAY_MONDAY_TEXT;"Текст ""Пн"" (понедельник)";Пн;Mon
-WEEKDAY_SATURDAY_TEXT;"Текст ""Сб"" (суббота)";Сб;Sat
-WEEKDAY_SUNDAY_TEXT;"Текст ""Вс"" (воскресенье)";Вс;Sun
-WEEKDAY_THURSDAY_TEXT;"Текст ""Чт"" (четверг)";Чт;Thu
-WEEKDAY_TUESDAY_TEXT;"Текст ""Вт"" (вторник)";Вт;Tue
-WEEKDAY_WEDNESDAY_TEXT;"Текст ""Ср"" (среда)";Ср;Wed
-WELCOME_TEXT;Текст на главной странице;Ваш личный гид по гармоничной жизни — начиная с сегодняшнего дня!;Your personal guide to a harmonious life — starting today!
-WORLD_AROUND_CAPTION;"Заголовок ""Внешний мир""";Внешний мир;The outside world
-WORLD_INSIDE_CAPTION;"Заголовок ""Внутреннее состояние""";Внутреннее состояние;Internal condition
-YOUR_BIRTHDATE_PLACEHOLDER;"Текст по умолчанию в поле ""ваша дата рождения""";ДД.ММ.ГГГГ;DD.MM.YYYY
-YOUR_BIRTHDATE_TEXT;"Надпись ""Ваша дата рождения""";Ваша дата рождения;Your birthdate
-YOUR_NAME_PLACEHOLDER;"Текст по умолчанию в поле ""ваше имя""";Имя;Name
-YOUR_NAME_TEXT;"Надпись ""Ваше имя""";Ваше имя;Your name
+detailed description";"basisabonnement
++
+Detailbeschreibung"
+WEEK_TEXT;"Надпись ""Неделя""";Неделя;Week;Woche
+WEEKDAY_FRIDAY_TEXT;"Текст ""Пт"" (пятница)";Пт;Fri;Freitag
+WEEKDAY_MONDAY_TEXT;"Текст ""Пн"" (понедельник)";Пн;Mon;Montag
+WEEKDAY_SATURDAY_TEXT;"Текст ""Сб"" (суббота)";Сб;Sat;Samstag
+WEEKDAY_SUNDAY_TEXT;"Текст ""Вс"" (воскресенье)";Вс;Sun;Sonntag
+WEEKDAY_THURSDAY_TEXT;"Текст ""Чт"" (четверг)";Чт;Thu;Donnerstag
+WEEKDAY_TUESDAY_TEXT;"Текст ""Вт"" (вторник)";Вт;Tue;Dienstag
+WEEKDAY_WEDNESDAY_TEXT;"Текст ""Ср"" (среда)";Ср;Wed;Mittwoch
+WELCOME_TEXT;Текст на главной странице;Ваш личный гид по гармоничной жизни — начиная с сегодняшнего дня!;Your personal guide to a harmonious life — starting today!;Ihr pers?nlicher Leitfaden f?r ein harmonisches Leben - ab heute!
+WORLD_AROUND_CAPTION;"Заголовок ""Внешний мир""";Внешний мир;The outside world;Au?enwelt
+WORLD_INSIDE_CAPTION;"Заголовок ""Внутреннее состояние""";Внутреннее состояние;Internal condition;Interner Zustand
+YOUR_BIRTHDATE_PLACEHOLDER;"Текст по умолчанию в поле ""ваша дата рождения""";ДД.ММ.ГГГГ;DD.MM.YYYY;TT.MM.JJJJ
+YOUR_BIRTHDATE_TEXT;"Надпись ""Ваша дата рождения""";Ваша дата рождения;Your birthdate;Dein Geburtsdatum
+YOUR_NAME_PLACEHOLDER;"Текст по умолчанию в поле ""ваше имя""";Имя;Name;Name
+YOUR_NAME_TEXT;"Надпись ""Ваше имя""";Ваше имя;Your name;Ihr Name
+de;;;;
