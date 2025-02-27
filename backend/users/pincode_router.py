@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from schemas import *
 from .utils import *
-from . import db, log
+from . import db, log, email_sender
 import random
 
 
@@ -21,7 +21,8 @@ async def pincode_reset(
     try:
         code = str(random.randint(10000, 99999))
         await db.update_user_current_code(user_id=user.id, current_code=code)
-        return BaseResponse(payload=code)
+        await email_sender.send_code(send_to=user.email, code=code)
+        return BaseResponse()
 
     except Exception as e:
         log.error(str(e))
@@ -63,7 +64,8 @@ async def pincode_resend_code(
     try:
         code = str(random.randint(10000, 99999))
         await db.update_user_current_code(user_id=user.id, current_code=code)
-        return BaseResponse(payload=code)
+        await email_sender.send_code(send_to=user.email, code=code)
+        return BaseResponse()
 
     except Exception as e:
         log.error(str(e))

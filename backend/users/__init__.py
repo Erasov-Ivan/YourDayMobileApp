@@ -1,11 +1,15 @@
 from fastapi import APIRouter
 import logging
-from config import get_db_connection, configure_logging, encode_jwt_token, decode_jwt_token, DATE_FORMAT
+from config import get_db_connection, configure_logging, encode_jwt_token, decode_jwt_token, DATE_FORMAT, SMTP_LOGIN, SMTP_PASSWORD
+from .email_sender import Sender
+import asyncio
 
 log = logging.getLogger('Users Routes')
 configure_logging()
 
 db = get_db_connection()
+email_sender = Sender(login=SMTP_LOGIN, password=SMTP_PASSWORD)
+asyncio.run(email_sender.run_server())
 
 
 router = APIRouter(prefix="/users", tags=[])

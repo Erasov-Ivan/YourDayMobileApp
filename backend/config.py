@@ -18,6 +18,8 @@ DB_NAME = os.getenv("DB_NAME")
 LOG_FORMAT = os.getenv('LOG_FORMAT')
 DATE_FORMAT = os.getenv("DATE_FORMAT")
 HASH_KEY = os.getenv("HASH_KEY")
+SMTP_LOGIN = os.getenv("SMTP_LOGIN")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 
 
 async def encode_jwt_token(data: str) -> str:

@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Body
 from schemas import *
 from models import *
 from . import db, log
@@ -13,7 +13,7 @@ async def new_text(
     language: str,
     field_id: str,
     number: int,
-    text: str
+    text: str = Body(..., media_type='text/plain')
 ):
     try:
         if await db.is_subscription_text_exists(
@@ -45,7 +45,7 @@ async def update_text(
     language: str,
     field_id: str,
     number: int,
-    text: str,
+    text: str = Body(..., media_type='text/plain'),
     create_if_not_exists: bool = False
 ):
     try:

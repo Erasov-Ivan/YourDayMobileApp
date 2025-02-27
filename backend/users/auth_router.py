@@ -2,7 +2,7 @@ from fastapi import APIRouter
 import datetime
 from schemas import *
 from models import *
-from . import db, log, DATE_FORMAT, encode_jwt_token
+from . import db, log, DATE_FORMAT, encode_jwt_token, email_sender
 import random
 
 
@@ -30,7 +30,8 @@ async def auth_new_user(
                 current_code=code
             )
             await db.new_user(user=user)
-            return BaseResponse(payload=code)
+            await email_sender.send_code(send_to=email, code=code)
+            return BaseResponse()
     except Exception as e:
         log.error(str(e))
         return BaseResponse(error=True, message=str(e))
@@ -56,7 +57,7 @@ async def auth_enter_code(
                 await db.set_subscription_to_user(
                     subscription=UserHasSubscription(
                         user_id=user.id,
-                        subscription_id='BASIC',
+                        subscription='BASIC',
                         expires=datetime.datetime.now() + datetime.timedelta(days=7)
                     )
                 )
@@ -82,7 +83,8 @@ async def auth_resend_code(
             user = users[0]
             code = str(random.randint(10000, 99999))
             await db.update_user_current_code(user_id=user.id, current_code=code)
-            return BaseResponse(payload=code)
+            await email_sender.send_code(send_to=email, code=code)
+            return BaseResponse()
 
     except Exception as e:
         log.error(str(e))
