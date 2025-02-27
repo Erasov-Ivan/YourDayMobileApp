@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import requests
 import openpyxl
 
-
+HOST = '80.93.60.7'
 
 @dataclass
 class Language:
@@ -37,7 +37,7 @@ for i in range(0, worksheet.max_row):
                 )
     else:
         response = requests.post(
-            url='http://89.111.153.183:5000/api/admin/general_texts/new_field',
+            url=f'http://{HOST}:5000/api/admin/general_texts/new_field',
             params={
                 'field_id': row[headers.field_id_position],
                 'description': row[headers.description_position]
@@ -50,7 +50,7 @@ for i in range(0, worksheet.max_row):
             print('-'*50)
         for language in headers.languages:
             response = requests.post(
-                url='http://89.111.153.183:5000/api/admin/general_texts/update_text',
+                url=f'http://{HOST}:5000/api/admin/general_texts/update_text',
                 params={
                     'field_id': row[headers.field_id_position],
                     'language': language.language,
