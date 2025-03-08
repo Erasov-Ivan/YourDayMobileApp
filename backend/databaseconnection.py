@@ -250,3 +250,12 @@ class DataBaseWorker:
             ).order_by(SubscriptionTexts.number)
             result = (await session.execute(stmt)).scalars().all()
             return result
+
+    async def get_colors(self) -> dict:
+        async with self.create_session() as session:
+            stmt = select(Colors)
+            colors: list[Colors] = (await session.execute(stmt)).scalars().all()
+            result = {}
+            for color in colors:
+                result[color.number] = color.hex
+            return result

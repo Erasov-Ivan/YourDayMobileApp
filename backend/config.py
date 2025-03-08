@@ -20,6 +20,8 @@ DATE_FORMAT = os.getenv("DATE_FORMAT")
 HASH_KEY = os.getenv("HASH_KEY")
 SMTP_LOGIN = os.getenv("SMTP_LOGIN")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+ROBOKASSA_MERCHANT_LOGIN = os.getenv("ROBOKASSA_MERCHANT_LOGIN")
+ROBOKASSA_PASSWORD = os.getenv("ROBOKASSA_PASSWORD")
 
 
 async def encode_jwt_token(data: str) -> str:

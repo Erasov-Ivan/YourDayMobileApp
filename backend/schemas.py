@@ -79,6 +79,7 @@ class SubscriptionsListResponse(BaseResponse):
 
 class PredictionFieldModel(BaseModel):
     num: int
+    color: Optional[str]
     text: Optional[str]
 
 

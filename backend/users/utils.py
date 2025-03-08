@@ -42,17 +42,21 @@ async def generate_prediction(
         field_id='UNDER_HEART',
         number=k
     )
+    colors = await db.get_colors()
     return {
         'FIELD_A': PredictionFieldModel(
             num=a,
+            color=colors.get(a),
             text=a_text.text if a_text else None
         ),
         'FIELD_B': PredictionFieldModel(
             num=b,
+            color=colors.get(b),
             text=b_text.text if b_text else None
         ),
         'UNDER_HEART': PredictionFieldModel(
             num=k,
+            color=colors.get(k),
             text=k_text.text if k_text else None
         )
     }

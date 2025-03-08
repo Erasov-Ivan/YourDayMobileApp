@@ -36,7 +36,15 @@ class Sender:
     async def send_code(self, send_to: str, code: str):
         subject = 'Код подтверждения YourDay'
         message = f'Ваш код: {code}'
-        await self.send_message(subject=subject, message=message, send_to=send_to)
+        try:
+            await self.send_message(subject=subject, message=message, send_to=send_to)
+        except Exception as e:
+            logging.error(e)
+            logging.info('Reconnecting to SMTP server')
+            self.server = aiosmtplib.SMTP(hostname='smtp.mail.ru', port=25)
+            await self.run_server()
+            logging.info('Resending message')
+            await self.send_message(subject=subject, message=message, send_to=send_to)
 
     async def quit(self):
         await self.server.quit()

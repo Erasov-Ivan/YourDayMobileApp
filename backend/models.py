@@ -55,3 +55,10 @@ class SubscriptionTexts(Base):
     language = Column(String, primary_key=True)
     subscription_id = Column(String, ForeignKey(Subscription.id, ondelete="CASCADE"), nullable=False, primary_key=True)
     text = Column(String)
+
+
+class Colors(Base):
+    __tablename__ = "colors"
+
+    number = Column(Integer, primary_key=True)
+    hex = Column(String)
