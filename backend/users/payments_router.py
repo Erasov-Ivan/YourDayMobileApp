@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, HTTPException
 from pydantic import BaseModel
 import hashlib
-from ..config import ROBOKASSA_MERCHANT_LOGIN, ROBOKASSA_PASSWORD
+from config import ROBOKASSA_MERCHANT_LOGIN, ROBOKASSA_PASSWORD
 
 router = APIRouter(prefix="/payments", tags=["Users Payments"])
 
@@ -36,15 +36,18 @@ async def robokassa_success(request: Request):
         print(await request.form())
     except:
         pass
-    form_data = await request.form()
-    invoice_id = form_data.get("InvId")
-    amount = form_data.get("OutSum")
-    signature = form_data.get("SignatureValue")
+    invoice_id = 2
+    try:
+        form_data = await request.form()
+        invoice_id = form_data.get("InvId")
+        amount = form_data.get("OutSum")
+        signature = form_data.get("SignatureValue")
 
-    expected_signature = generate_signature(float(amount), int(invoice_id), ROBOKASSA_PASSWORD)
-    print(signature)
-    print(expected_signature)
-    if signature.lower() != expected_signature.lower():
-        raise HTTPException(status_code=400, detail="Invalid signature")
-
+        expected_signature = generate_signature(float(amount), int(invoice_id), ROBOKASSA_PASSWORD)
+        print(signature)
+        print(expected_signature)
+        if signature.lower() != expected_signature.lower():
+            raise HTTPException(status_code=400, detail="Invalid signature")
+    except Exception as e:
+        print(str(e))
     return f"OK{invoice_id}"

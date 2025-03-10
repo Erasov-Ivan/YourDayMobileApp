@@ -37,6 +37,20 @@ services:
       options:
         max-size: "10m"
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./fullchain.pem:/etc/letsencrypt/live/yourday.pro/fullchain.pem
+      - ./certificate.key:/etc/letsencrypt/live/yourday.pro/yourday.pro.key
+    depends_on:
+      - backend
+
 
 volumes:
   db-data:

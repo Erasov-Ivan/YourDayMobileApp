@@ -23,3 +23,5 @@ from .subscription_texts_router import router as subscription_texts_router
 router.include_router(subscription_texts_router)
 from .payments_router import router as payments_router
 router.include_router(payments_router)
+from .subscriptions_router import router as subscriptions_router
+router.include_router(subscriptions_router)

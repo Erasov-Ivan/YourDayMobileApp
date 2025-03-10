@@ -118,3 +118,12 @@ class SubscriptionLanguagesModel(BaseModel):
 
 class SubscriptionTextsResponse(BaseResponse):
     payload: Optional[List[SubscriptionLanguagesModel]] = None
+
+
+class UserSubscriptionsModel(BaseModel):
+    basic: Optional[str] = None
+    extended: Optional[str] = None
+
+
+class UserSubscriptionsResponse(BaseResponse):
+    payload: Optional[UserSubscriptionsModel] = None
