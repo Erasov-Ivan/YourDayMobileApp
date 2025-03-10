@@ -13,11 +13,13 @@ router = APIRouter(prefix="/subscription_texts", tags=["Users Subscription Texts
 async def get_predictions(
         language: str,
         bdate: str,
+        start_date: str,
         days: int,
         token: str
 ):
     try:
         birthdate = datetime.datetime.strptime(bdate, DATE_FORMAT)
+        start_date = datetime.datetime.strptime(start_date, DATE_FORMAT)
         user = await get_user_by_token(token=token)
         user_subscriptions = await db.get_user_subscriptions(user_id=user.id)
         if len(user_subscriptions) == 0:
@@ -29,7 +31,7 @@ async def get_predictions(
                 for subscription in user_subscriptions:
                     if subscription.expires >= datetime.datetime.now():
                         subscriptions[subscription.subscription] = await generate_prediction(
-                            date=datetime.date.today() + datetime.timedelta(days=day),
+                            date=start_date + datetime.timedelta(days=day),
                             birthdate=birthdate,
                             language=language,
                             subscription_id=subscription.subscription

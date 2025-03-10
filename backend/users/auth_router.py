@@ -16,6 +16,7 @@ async def auth_new_user(
         bdate: str
 ):
     try:
+        email = email.lower()
         result = await db.get_users_by_email(email=email)
         if len(result) > 0:
             return BaseResponse(error=True, message="Email already exists")
@@ -43,6 +44,7 @@ async def auth_enter_code(
         code: str
 ):
     try:
+        email = email.lower()
         users = await db.get_users_by_email(email=email)
         if len(users) == 0:
             return BaseResponse(error=True, message="User with this email does not exist")
@@ -76,6 +78,7 @@ async def auth_resend_code(
         email: str,
 ):
     try:
+        email = email.lower()
         users = await db.get_users_by_email(email=email)
         if len(users) == 0:
             return BaseResponse(error=True, message="User with this email does not exist")
