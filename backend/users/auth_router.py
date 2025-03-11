@@ -19,7 +19,11 @@ async def auth_new_user(
         email = email.lower()
         result = await db.get_users_by_email(email=email)
         if len(result) > 0:
-            return BaseResponse(error=True, message="Email already exists")
+            user = result[0]
+            code = str(random.randint(10000, 99999))
+            await db.update_user_current_code(user_id=user.id, current_code=code)
+            await email_sender.send_code(send_to=email, code=code)
+            return BaseResponse()
         else:
             bday = datetime.datetime.strptime(bdate, DATE_FORMAT)
             code = str(random.randint(10000, 99999))
