@@ -60,13 +60,14 @@ async def auth_enter_code(
                 if token is None:
                     raise Exception('Wrong data to generate token')
                 await db.approve_user(user_id=user.id, approved=True)
-                await db.set_subscription_to_user(
-                    subscription=UserHasSubscription(
-                        user_id=user.id,
-                        subscription='BASIC',
-                        expires=datetime.datetime.now() + datetime.timedelta(days=7)
+                if len(await db.get_user_subscriptions(user_id=user.id)) == 0:
+                    await db.set_subscription_to_user(
+                        subscription=UserHasSubscription(
+                            user_id=user.id,
+                            subscription='BASIC',
+                            expires=datetime.datetime.now() + datetime.timedelta(days=7)
+                        )
                     )
-                )
                 await db.update_user_current_code(user_id=user.id, current_code=None)
                 return BaseResponse(payload=token)
             else:
