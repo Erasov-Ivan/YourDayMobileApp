@@ -15,6 +15,7 @@ class User(Base):
     bdate = Column(Date)
     approved = Column(Boolean, default=False)
     current_code = Column(String, nullable=True)
+    registration_date = Column(DateTime)
 
 
 class Subscription(Base):

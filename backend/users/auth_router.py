@@ -32,7 +32,8 @@ async def auth_new_user(
                 name=name,
                 bdate=bday,
                 approved=False,
-                current_code=code
+                current_code=code,
+                registration_date=datetime.datetime.now()
             )
             await db.new_user(user=user)
             await email_sender.send_code(send_to=email, code=code)
