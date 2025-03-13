@@ -29,7 +29,7 @@ async def get_predictions(
             for day in range(days):
                 subscriptions: dict[str, dict[str, PredictionFieldModel]] = {}
                 for subscription in user_subscriptions:
-                    if subscription.expires >= datetime.datetime.now():
+                    if subscription.expires is None or subscription.expires >= datetime.datetime.now():
                         subscriptions[subscription.subscription] = await generate_prediction(
                             date=start_date + datetime.timedelta(days=day),
                             birthdate=birthdate,

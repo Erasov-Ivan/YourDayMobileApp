@@ -127,3 +127,17 @@ class UserSubscriptionsModel(BaseModel):
 
 class UserSubscriptionsResponse(BaseResponse):
     payload: Optional[UserSubscriptionsModel] = None
+
+
+class SubscriptionOptionModel(BaseModel):
+    subscription_id: str
+    months: int
+    cost: int
+
+
+class SubscriptionOptionsListModel(BaseModel):
+    options: List[SubscriptionOptionModel] = []
+
+
+class SubscriptionOptionsResponse(BaseResponse):
+    payload: Optional[SubscriptionOptionsListModel] = None

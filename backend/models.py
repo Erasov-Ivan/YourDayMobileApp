@@ -25,12 +25,29 @@ class Subscription(Base):
     description = Column(String)
 
 
+class SubscriptionInterval(Base):
+    __tablename__ = "subscriptions_intervals"
+
+    subscription_id = Column(String, ForeignKey(Subscription.id, ondelete="CASCADE"), nullable=False, primary_key=True)
+    months = Column(Integer, primary_key=True)
+    cost = Column(Integer)
+
+
 class UserHasSubscription(Base):
     __tablename__ = "user_has_subscription"
 
     user_id = Column(BigInteger, ForeignKey(User.id, ondelete="CASCADE"), nullable=False, primary_key=True, index=True)
     subscription = Column(String, ForeignKey(Subscription.id, ondelete="CASCADE"), nullable=False, primary_key=True, index=True)
     expires = Column(DateTime)
+
+
+class Invoice(Base):
+    __tablename__ = "invoices"
+
+    id = Column(BigInteger, Sequence('invoice_id', metadata=Base.metadata), primary_key=True, index=True)
+    from_user = Column(BigInteger, ForeignKey(User.id, ondelete="CASCADE"), nullable=False, primary_key=True, index=True)
+    cost = Column(Integer)
+    succeed = Column(Boolean)
 
 
 class TextField(Base):

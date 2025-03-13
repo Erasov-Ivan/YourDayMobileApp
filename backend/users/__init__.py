@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import logging
-from config import get_db_connection, configure_logging, encode_jwt_token, decode_jwt_token, DATE_FORMAT, SMTP_LOGIN, SMTP_PASSWORD
+from config import get_db_connection, configure_logging, encode_jwt_token, decode_jwt_token, DATE_FORMAT, SMTP_LOGIN, SMTP_PASSWORD, ROBOKASSA_MERCHANT_LOGIN, ROBOKASSA_PASSWORD
 from .email_sender import Sender
 import asyncio
 

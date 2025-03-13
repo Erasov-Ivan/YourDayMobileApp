@@ -28,3 +28,22 @@ async def get_user_subscriptions(
         log.error(str(e))
         return BaseResponse(error=True, message=str(e))
 
+
+@router.get("/options", response_model=SubscriptionOptionsResponse)
+async def get_subscription_options():
+    try:
+        options = await db.get_subscription_intervals()
+        return SubscriptionOptionsResponse(
+            payload=SubscriptionOptionsListModel(
+                options=[
+                    SubscriptionOptionModel(
+                        subscription_id=option.subscription_id,
+                        months=option.months,
+                        cost=option.cost
+                    ) for option in options
+                ]
+            )
+        )
+    except Exception as e:
+        log.error(str(e))
+        return BaseResponse(error=True, message=str(e))

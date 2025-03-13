@@ -62,6 +62,11 @@ class DataBaseWorker:
         if len(subscriptions) == 0:
             await self.new_subscription(subscription=Subscription(id='BASIC', description='Базовый пакет'))
             await self.new_subscription(subscription=Subscription(id='EXTENDED', description='Расширенный пакет'))
+        intervals = await self.get_subscription_intervals()
+        if len(intervals) == 0:
+            await self.new_subscription_interval(interval=SubscriptionInterval(subscription_id='BASIC', months=3, cost=399))
+            await self.new_subscription_interval(interval=SubscriptionInterval(subscription_id='BASIC', months=12, cost=899))
+            await self.new_subscription_interval(interval=SubscriptionInterval(subscription_id='EXTENDED', months=-1, cost=8000))
 
     # ----------------------- USERS ---------------------
     async def new_user(self, user: User) -> None:
@@ -123,6 +128,27 @@ class DataBaseWorker:
             result = (await session.execute(stmt)).scalars().all()
             return result
 
+    async def new_subscription_interval(self, interval: SubscriptionInterval):
+        async with self.create_session() as session:
+            session.add(interval)
+            await session.commit()
+
+    async def get_subscription_intervals(self) -> list[SubscriptionInterval]:
+        async with self.create_session() as session:
+            stmt = select(SubscriptionInterval)
+            result = (await session.execute(stmt)).scalars().all()
+            return result
+
+    async def check_interval(self, subscription_id: str, months: int, cost: int) -> bool:
+        async with self.create_session() as session:
+            stmt = select(SubscriptionInterval).where(
+                SubscriptionInterval.subscription_id == subscription_id,
+                SubscriptionInterval.months == months,
+                SubscriptionInterval.cost == cost
+            )
+            result = (await session.execute(stmt)).scalars().all()
+            return bool(len(result))
+
     # ---------------------- USERS TO SUBSCRIPTIONS ---------------------------
     async def get_user_subscriptions(self, user_id: int) -> list[UserHasSubscription]:
         async with self.create_session() as session:
@@ -133,6 +159,38 @@ class DataBaseWorker:
     async def set_subscription_to_user(self, subscription: UserHasSubscription):
         async with self.create_session() as session:
             session.add(subscription)
+            await session.commit()
+
+    async def update_user_subscription(self, user_id: int, subscription_id: str, expires: datetime.datetime):
+        async with self.create_session() as session:
+            stmt = update(UserHasSubscription).where(
+                UserHasSubscription.user_id == user_id,
+                UserHasSubscription.subscription == subscription_id
+            ).values(expires=expires)
+            await session.execute(stmt)
+            await session.commit()
+
+    async def get_user_subscription(self, user_id: int, subscription_id: str) -> UserHasSubscription:
+        async with self.create_session() as session:
+            stmt = select(UserHasSubscription).where(
+                UserHasSubscription.user_id == user_id,
+                UserHasSubscription.subscription == subscription_id
+            )
+            result = (await session.execute(stmt)).scalars().first()
+            return result
+
+    # ----------------------------- INVOICES ---------------------------
+    async def new_invoice(self, user_id: int, cost: int) -> int:
+        async with self.create_session() as session:
+            stmt = insert(Invoice).values(from_user=user_id, cost=cost, succeed=False).returning(Invoice.id)
+            result = (await session.execute(stmt)).scalars().first()
+            await session.commit()
+            return result
+
+    async def approve_invoice(self, invoice_id: int):
+        async with self.create_session() as session:
+            stmt = update(Invoice).where(Invoice.id == invoice_id).values(succeed=True)
+            await session.execute(stmt)
             await session.commit()
 
     # ----------------------------- TEXTS ---------------------------

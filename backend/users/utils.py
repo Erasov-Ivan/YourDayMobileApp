@@ -3,6 +3,7 @@ import datetime
 from models import *
 from schemas import *
 from .predictions_calculator import calculate_prediction
+import logging
 
 
 async def get_user_by_token(token: str) -> User:
@@ -61,4 +62,65 @@ async def generate_prediction(
         )
     }
 
+
+async def update_subscription(subscription_id: str, user_id: int, months: int):
+    user_subscription = await db.get_user_subscription(user_id=user_id, subscription_id=subscription_id)
+    if user_subscription is None:
+        if months == -1:
+            await db.set_subscription_to_user(
+                subscription=UserHasSubscription(
+                    user_id=user_id,
+                    subscription=subscription_id,
+                    expires=None
+                )
+            )
+        else:
+            await db.set_subscription_to_user(
+                subscription=UserHasSubscription(
+                    user_id=user_id,
+                    subscription=subscription_id,
+                    expires=datetime.datetime.now() + datetime.timedelta(days=months * 30)
+                )
+            )
+    else:
+        if months == -1:
+            await db.update_user_subscription(
+                user_id=user_id,
+                subscription_id=subscription_id,
+                expires=None
+            )
+        else:
+            if user_subscription.expires is not None:
+                if user_subscription.expires >= datetime.datetime.now():
+                    await db.update_user_subscription(
+                        user_id=user_id,
+                        subscription_id=subscription_id,
+                        expires=user_subscription.expires + datetime.timedelta(days=months * 30)
+                    )
+                else:
+                    await db.update_user_subscription(
+                        user_id=user_id,
+                        subscription_id=subscription_id,
+                        expires=datetime.datetime.now() + datetime.timedelta(days=months * 30)
+                    )
+
+
+async def process_payment(user_email: str, subscription: str, months: int, cost: int):
+    if not await db.check_interval(subscription_id=subscription, months=months, cost=cost):
+        logging.critical(f'Wrong subscription interval: {subscription}, {months} months, {cost}')
+        return
+
+    users = await db.get_users_by_email(email=user_email)
+    if len(users) == 0:
+        logging.critical(f'User with email {user_email} not found during payment')
+        return
+
+    user = users[0]
+    if subscription == 'EXTENDED':
+        await update_subscription(subscription_id='BASIC', user_id=user.id, months=months)
+        await update_subscription(subscription_id='EXTENDED', user_id=user.id, months=months)
+    elif subscription == 'BASIC':
+        await update_subscription(subscription_id='BASIC', user_id=user.id, months=months)
+    else:
+        raise Exception(f'No handler for subscription type: {subscription}')
 
