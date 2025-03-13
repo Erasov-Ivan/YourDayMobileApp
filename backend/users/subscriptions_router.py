@@ -16,11 +16,17 @@ async def get_user_subscriptions(
         user_subscriptions = await db.get_user_subscriptions(user_id=user.id)
         result = UserSubscriptionsModel()
         for user_subscription in user_subscriptions:
-            if user_subscription.expires >= datetime.datetime.now():
+            if user_subscription.expires is None or user_subscription.expires >= datetime.datetime.now():
                 if user_subscription.subscription == 'BASIC':
-                    result.basic = user_subscription.expires.strptime(DATE_FORMAT)
+                    if user_subscription.expires is not None:
+                        result.basic = user_subscription.expires.strftime(DATE_FORMAT)
+                    else:
+                        result.basic = 'ENDLESS'
                 elif user_subscription.subscription == 'EXTENDED':
-                    result.extended = user_subscription.expires.strptime(DATE_FORMAT)
+                    if user_subscription.expires is not None:
+                        result.extended = user_subscription.expires.strftime(DATE_FORMAT)
+                    else:
+                        result.extended = 'ENDLESS'
         return UserSubscriptionsResponse(
             payload=result
         )
